@@ -20,11 +20,9 @@ LABEL com.nvidia.volumes.needed="nvidia_driver"
 WORKDIR /usr/app/
 COPY /src /usr/app/
 
-# Copy wrapper script to allow beaker to run resumable training workloads.
-COPY scripts/ai2_internal/resumable_train.sh /usr/app/resumable_train.sh
 ENV ALLENNLP_VERSION=v0.9.0
 RUN pip install -r requirements.txt
 
 EXPOSE 8000
-CMD python app.py --serve
+ENTRYPOINT ["python", "app.py"]
 

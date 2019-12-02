@@ -5,6 +5,7 @@ from gevent.pywsgi import WSGIServer
 
 import argparse
 import json
+import os
 
 def parse_args():
   parser = argparse.ArgumentParser()
@@ -18,7 +19,7 @@ def parse_args():
       'one route for each model')
   return parser.parse_args()
 
-def setup_route(route, model):
+def setup_route(app, route, model):
   allennlp_model = Predictor.from_path(model)
 
   @app.route(f'/{route}', methods=['POST'])
@@ -34,7 +35,9 @@ def setup_route(route, model):
 def serve(full_models, port):
   app = Flask(__name__)
   for (route, model) in full_models:
-    setup_route(route, model)
+    print(f'Serving {model} in {route}')
+    model_path = os.path.join(os.path.abspath(os.path.curdir), model)
+    setup_route(app, route, model_path)
 
   # serve on all interfaces with ip on given port
   http_server = WSGIServer(('0.0.0.0', port), app)
