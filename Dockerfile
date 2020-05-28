@@ -31,4 +31,4 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
 EXPOSE 8000
 
 # long-running process
-ENTRYPOINT ["forever", "-c", "python", "app.py"]
+ENTRYPOINT ["forever", "-c", "python", "app.py", "--model", "/data/fine-grained-ner-model-elmo-2018.12.21.tar.gz", "--port", "8000", "--routes", "ner"]
