@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker build -t allennlp-server:latest .
+docker build -t allennlp_server:latest .
 

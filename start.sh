@@ -4,11 +4,13 @@ if [[ ! -d "models" ]]; then
   mkdir models
 fi
 
-if [[ "$(ls models | wc -l)" -eq 0 ]]; then
-  echo "Empty models dir!"
-fi
+model_url="https://storage.googleapis.com/allennlp-public-models"
+model_name="fine-grained-ner.2021-02-11.tar.gz"
 
-container_name='allennlp-server'
-docker rm $container_name
-echo "Run:"
-echo "docker run -d -p 8000:8000 -v `pwd`/models:/usr/app/models --name $container_name $container_name:latest --models <model_1> [, <model_2>] --routes <route_model_1> [, <route_model_2>]"
+[[ ! -f "models/${model_name}" ]] && wget "${model_url}/${model_name}" -O "models/${model_name}"
+
+./stop.sh
+
+docker rm allennlp_server
+docker run -d -v `pwd`/models:/usr/app/models -p 9012:8000 --name allennlp_server_1 allennlp_server:latest --models models/$model_name --routes ner
+

@@ -1,4 +1,4 @@
-from allennlp.predictors.predictor import Predictor
+from allennlp.predictors import Predictor
 
 from flask import Flask, request, jsonify
 from gevent.pywsgi import WSGIServer

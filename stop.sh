@@ -1,4 +1,3 @@
 #!/bin/bash
 
-container_name='allennlp-server'
-docker stop $container_name
+docker stop "allennlp_server_1"
