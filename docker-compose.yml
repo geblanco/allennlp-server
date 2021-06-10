@@ -1,0 +1,11 @@
+version: '3'
+services:
+  allennlp_server:
+    build:
+      context: ./
+    volumes:
+      - ./models:/usr/app/models
+    ports:
+      - '9012:8000'
+    command: ["--model", "models/fine-grained-ner.2021-02-11.tar.gz", "--routes", "ner"]
+
