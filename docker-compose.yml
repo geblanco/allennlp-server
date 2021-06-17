@@ -3,6 +3,7 @@ services:
   allennlp_server:
     build:
       context: ./
+      dockerfile: Dockerfile
     volumes:
       - ./models:/usr/app/models
     ports:
